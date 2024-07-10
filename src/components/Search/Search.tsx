@@ -37,8 +37,8 @@ class Search extends React.Component<State> {
   inputRef = React.createRef();
 
   componentDidMount() {
-    //this.readLsAndSetSearchBox();
-    //this.getData();
+    this.readLsAndSetSearchBox();
+    this.getData();
   }
 
   readLsAndSetSearchBox = () => {
@@ -47,7 +47,7 @@ class Search extends React.Component<State> {
   };
 
   getData = () => {
-    fetch("https://swapi.dev/api/people")
+    fetch(`https://swapi.dev/api/people?search=${this.inputRef.current.value}`)
       .then((response) => response.json())
       .then((response) => {
         this.setState(() => ({ data: response.results }));
@@ -67,7 +67,7 @@ class Search extends React.Component<State> {
   render() {
     return (
       <div>
-        <section style={{ height: "100px" }}>
+        <section style={{ height: "100px", textAlign: "center" }}>
           <div>
             <input
               type="text"
@@ -78,12 +78,17 @@ class Search extends React.Component<State> {
             <button onClick={this.clickSearch}>Search</button>
           </div>
         </section>
-        <section style={{ height: "400px" }}>
-          <ul>
+        <section style={{ height: "100%" }}>
+          <ol>
             {this.state.data.map((d) => (
-              <li key={d.url}>{d.name}</li>
+              <li key={d.url}>
+                <ul style={{ listStyleType: "none" }}>
+                  <li>{d.name}</li>
+                  <li>{d.hair_color}</li>
+                </ul>
+              </li>
             ))}
-          </ul>
+          </ol>
         </section>
       </div>
     );
