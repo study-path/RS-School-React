@@ -1,0 +1,8 @@
+section {
+  width: 1024px;
+  margin: 5px;
+  border: 1px solid gray;
+}
+button {
+  margin: 10px;
+}
